@@ -25,7 +25,7 @@
         // カメラを作成
         const camera = new THREE.PerspectiveCamera(45, width / height);
         // カメラの初期座標を設定
-        camera.position.set(0, 0, 10);
+        camera.position.set(0, -10, 0);
 
         // カメラコントローラーを作成
         const controls = new THREE.OrbitControls(camera, document.body); 
@@ -41,19 +41,26 @@
         // シーンに追加
         scene.add(directionalLight2);
     
-        // 太陽
-        var geometry = new THREE.SphereGeometry(3, 64, 32);
-        var material = new THREE.MeshPhongMaterial({ color: 0xFF0000 });
-        var sun = new THREE.Mesh(geometry, material);
-        sun.position.set(0,0,0); //位置を指定
-        scene.add(sun);   // シーンに追加
-
+         // helper
+        const gridHelper = new THREE.GridHelper(2,10); // size, step
+        scene.add(gridHelper);
+        const axisHelper = new THREE.AxisHelper(5); //軸の長さ　X：赤、Y：緑、z：青
+        scene.add(axisHelper);
+        
         //地球
-        var geometry = new THREE.SphereGeometry(1, 64, 32)
+        var geometry = new THREE.SphereGeometry(2, 64, 32)
         var material = new THREE.MeshPhongMaterial({color: 0x0000ff});
         var earth = new THREE.Mesh(geometry, material);
-        earth.position.set(5, 0, 0); //位置を指定
+        earth.position.set(0, 0, 0); //位置を指定
         scene.add(earth);  //シーンに追加
+        
+        // 月
+        var geometry = new THREE.SphereGeometry(0.5, 64, 32);
+        var material = new THREE.MeshPhongMaterial({ color: 0xF7FE2E });
+        var moon = new THREE.Mesh(geometry, material);
+        moon.position.set(-6, 0, 0); //位置を指定
+        scene.add(moon);   // シーンに追加
+     
         update();
 
         // 毎フレーム時に実行されるループイベントです
